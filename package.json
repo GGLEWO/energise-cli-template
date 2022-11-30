@@ -1,8 +1,8 @@
 {
-  "name": "{{name}}",
+  "name": "template",
   "version": "4.4.0",
-  "description": "{{description}}",
-  "author": "{{author}}",
+  "description": "description",
+  "author": "ym",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build:prod": "vue-cli-service build",
@@ -51,8 +51,7 @@
     "vue-template-compiler": "2.6.10"
   },
   "browserslist": [
-    "> 1%",
-    "last 2 versions"
+    "> 1%", "last 2 versions"
   ],
   "engines": {
     "node": ">=8.9",
