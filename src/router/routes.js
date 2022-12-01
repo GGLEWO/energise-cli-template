@@ -13,7 +13,7 @@ export const routes = [
 
   {
     path: "/",
-    component: require("../layout/index"),
+    component: require("../layout/index.vue"),
     redirect: "/dashboard",
     children: [
       {
@@ -27,7 +27,7 @@ export const routes = [
 
   {
     path: "/table",
-    component: require("../layout/index"),
+    component: require("../layout/index.vue"),
     children: [
       {
         path: "index",
@@ -39,7 +39,7 @@ export const routes = [
   },
   {
     path: "/tree",
-    component: require("../layout/index"),
+    component: require("../layout/index.vue"),
     children: [
       {
         path: "index",
@@ -52,7 +52,7 @@ export const routes = [
 
   {
     path: "/form",
-    component: require("../layout/index"),
+    component: require("../layout/index.vue"),
     children: [
       {
         path: "index",
@@ -65,7 +65,7 @@ export const routes = [
 
   {
     path: "/nested",
-    component: require("../layout/index"),
+    component: require("../layout/index.vue"),
     redirect: "/nested/menu1",
     name: "Nested",
     meta: {
@@ -126,7 +126,7 @@ export const routes = [
 
   {
     path: "external-link",
-    component: require("../layout/index"),
+    component: require("../layout/index.vue"),
     children: [
       {
         path: "https://panjiachen.github.io/vue-element-admin-site/#/",
