@@ -48,7 +48,6 @@ export const routes = [
       {
         path: "index",
         name: "Form",
-        component: () => require("../views/form/index"),
         meta: { title: "Form", icon: "form" },
       },
     ],
@@ -64,7 +63,7 @@ export const routes = [
     },
     children: [
       {
-        path: "menu1",/ Parent router-view
+        path: "menu1",
         name: "Menu1",
         meta: { title: "Menu1" },
         children: [
