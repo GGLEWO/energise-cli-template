@@ -2,7 +2,7 @@
  * @Author: guanyaoming guanyaoming@linklogis.com
  * @Date: 2022-11-30 14:13:40
  * @LastEditors: guanyaoming guanyaoming@linklogis.com
- * @LastEditTime: 2022-12-02 15:34:37
+ * @LastEditTime: 2022-12-02 17:35:45
  * @FilePath: \energise-cli-template\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -17,10 +17,11 @@ import Layout from "@/layout";
 import Tree from "@/views/tree";
 import Table from "@/views/table";
 import Form from "@/views/form";
-import Menu1 from "@/views/nested/menu1/index";
+import Nested from "@/views/nested/index";
 import Menu2 from "@/views/nested/menu2/index";
+import Menu1 from "@/views/nested/menu1/index";
 import Menu1A1 from "@/views/nested/menu1/menu1-1";
-import Menu1A2 from "@/views/nested/menu1/menu1-2";
+import Menu1A2 from "@/views/nested/menu1/menu1-2/index";
 import Menu1A2A1 from "@/views/nested/menu1/menu1-2/menu1-2-1";
 import Menu1A2A2 from "@/views/nested/menu1/menu1-2/menu1-2-2";
 import Menu1A3 from "@/views/nested/menu1/menu1-3";
@@ -32,10 +33,11 @@ const componentHash = {
   Menu1,
   Menu2,
   Menu1A1,
-  Menu1A2,
   Menu1A2A1,
   Menu1A2A2,
   Menu1A3,
+  Nested,
+  Menu1A2,
 };
 
 /**
@@ -64,7 +66,7 @@ const componentHash = {
  */
 
 function handleAddComponent(e) {
-  e.component = e.name ? componentHash[e.name] : Layout;
+  e.component = e.name ? componentHash[e.name] : null;
   if (e.children) {
     e.children.map((val) => {
       return handleAddComponent(val);
@@ -76,8 +78,12 @@ function handleAddComponent(e) {
 const optionsRoutesRes = optionsRoutes.map((e) => {
   return handleAddComponent(e);
 });
-
+console.log(optionsRoutesRes, "optionsRoutesRes");
 const baseRoutes = [
+  {
+    path: "/",
+    component: () => import("@/views/login/index"),
+  },
   {
     path: "/login",
     component: () => import("@/views/login/index"),
@@ -91,20 +97,6 @@ const baseRoutes = [
   },
 
   {
-    path: "/",
-    component: Layout,
-    redirect: "/dashboard",
-    children: [
-      {
-        path: "dashboard",
-        name: "Dashboard",
-        component: () => import("@/views/dashboard/index"),
-        meta: { title: "Dashboard", icon: "dashboard" },
-      },
-    ],
-  },
-
-  {
     path: "external-link",
     component: Layout,
     children: [
@@ -114,12 +106,17 @@ const baseRoutes = [
       },
     ],
   },
-
-  // 404 page must be placed at the end !!!
-  { path: "*", redirect: "/404", hidden: true },
 ];
 
-export const constantRoutes = [...optionsRoutesRes, ...baseRoutes];
+baseRoutes.unshift({
+  path: "/dashboard",
+  component: Layout,
+  redirect: "/dashboard/table",
+  children: optionsRoutesRes,
+  meta: { title: "dashBoard", icon: "dashboard" },
+});
+console.log(baseRoutes, "baseRoutes");
+export const constantRoutes = baseRoutes;
 
 const createRouter = () =>
   new Router({

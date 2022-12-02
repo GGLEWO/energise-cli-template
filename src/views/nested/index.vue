@@ -1,10 +1,11 @@
-/*
+<!--
  * @Author: guanyaoming guanyaoming@linklogis.com
- * @Date: 2022-11-30 14:13:40
+ * @Date: 2022-12-02 17:01:55
  * @LastEditors: guanyaoming guanyaoming@linklogis.com
- * @LastEditTime: 2022-12-02 16:33:05
- * @FilePath: \energise-cli-template\src\layout\components\index.js
+ * @LastEditTime: 2022-12-02 17:02:10
+ * @FilePath: \energise-cli-template\src\views\nested\index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
-export { default as Navbar } from "./Navbar";
-export { default as Sidebar } from "./Sidebar";
+-->
+<template>
+  <router-view />
+</template>
