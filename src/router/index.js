@@ -2,7 +2,7 @@
  * @Author: guanyaoming guanyaoming@linklogis.com
  * @Date: 2022-11-30 14:13:40
  * @LastEditors: guanyaoming guanyaoming@linklogis.com
- * @LastEditTime: 2022-12-02 17:35:45
+ * @LastEditTime: 2022-12-02 20:24:51
  * @FilePath: \energise-cli-template\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -13,18 +13,18 @@ const { optionsRoutes } = require("./routes");
 Vue.use(Router);
 
 /* Layout */
-import Layout from "@/layout";
-import Tree from "@/views/tree";
-import Table from "@/views/table";
-import Form from "@/views/form";
-import Nested from "@/views/nested/index";
-import Menu2 from "@/views/nested/menu2/index";
-import Menu1 from "@/views/nested/menu1/index";
-import Menu1A1 from "@/views/nested/menu1/menu1-1";
-import Menu1A2 from "@/views/nested/menu1/menu1-2/index";
-import Menu1A2A1 from "@/views/nested/menu1/menu1-2/menu1-2-1";
-import Menu1A2A2 from "@/views/nested/menu1/menu1-2/menu1-2-2";
-import Menu1A3 from "@/views/nested/menu1/menu1-3";
+const Layout = () => import("@/layout");
+const Tree = () => import("@/views/tree");
+const Table = () => import("@/views/table");
+const Form = () => import("@/views/form");
+const Nested = () => import("@/views/nested/index");
+const Menu2 = () => import("@/views/nested/menu2/index");
+const Menu1 = () => import("@/views/nested/menu1/index");
+const Menu1A1 = () => import("@/views/nested/menu1/menu1-1");
+const Menu1A2 = () => import("@/views/nested/menu1/menu1-2/index");
+const Menu1A2A1 = () => import("@/views/nested/menu1/menu1-2/menu1-2-1");
+const Menu1A2A2 = () => import("@/views/nested/menu1/menu1-2/menu1-2-2");
+const Menu1A3 = () => import("@/views/nested/menu1/menu1-3");
 
 const componentHash = {
   Tree,
@@ -111,7 +111,6 @@ const baseRoutes = [
 baseRoutes.unshift({
   path: "/dashboard",
   component: Layout,
-  redirect: "/dashboard/table",
   children: optionsRoutesRes,
   meta: { title: "dashBoard", icon: "dashboard" },
 });
