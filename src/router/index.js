@@ -1,10 +1,42 @@
+/*
+ * @Author: guanyaoming guanyaoming@linklogis.com
+ * @Date: 2022-11-30 14:13:40
+ * @LastEditors: guanyaoming guanyaoming@linklogis.com
+ * @LastEditTime: 2022-12-02 15:34:37
+ * @FilePath: \energise-cli-template\src\router\index.js
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import Vue from "vue";
 import Router from "vue-router";
+const { optionsRoutes } = require("./routes");
 
 Vue.use(Router);
 
 /* Layout */
 import Layout from "@/layout";
+import Tree from "@/views/tree";
+import Table from "@/views/table";
+import Form from "@/views/form";
+import Menu1 from "@/views/nested/menu1/index";
+import Menu2 from "@/views/nested/menu2/index";
+import Menu1A1 from "@/views/nested/menu1/menu1-1";
+import Menu1A2 from "@/views/nested/menu1/menu1-2";
+import Menu1A2A1 from "@/views/nested/menu1/menu1-2/menu1-2-1";
+import Menu1A2A2 from "@/views/nested/menu1/menu1-2/menu1-2-2";
+import Menu1A3 from "@/views/nested/menu1/menu1-3";
+
+const componentHash = {
+  Tree,
+  Table,
+  Form,
+  Menu1,
+  Menu2,
+  Menu1A1,
+  Menu1A2,
+  Menu1A2A1,
+  Menu1A2A2,
+  Menu1A3,
+};
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -30,7 +62,22 @@ import Layout from "@/layout";
  * a base page that does not have permission requirements
  * all roles can be accessed
  */
-export const constantRoutes = [
+
+function handleAddComponent(e) {
+  e.component = e.name ? componentHash[e.name] : Layout;
+  if (e.children) {
+    e.children.map((val) => {
+      return handleAddComponent(val);
+    });
+  }
+  return e;
+}
+
+const optionsRoutesRes = optionsRoutes.map((e) => {
+  return handleAddComponent(e);
+});
+
+const baseRoutes = [
   {
     path: "/login",
     component: () => import("@/views/login/index"),
@@ -58,105 +105,6 @@ export const constantRoutes = [
   },
 
   {
-    path: "/table",
-    component: Layout,
-    children: [
-      {
-        path: "index",
-        name: "table",
-        component: () => import("@/views/table/index"),
-        meta: { title: "table", icon: "table" },
-      },
-    ],
-  },
-  {
-    path: "/tree",
-    component: Layout,
-    children: [
-      {
-        path: "index",
-        name: "tree",
-        component: () => import("@/views/tree/index"),
-        meta: { title: "tree", icon: "tree" },
-      },
-    ],
-  },
-
-  {
-    path: "/form",
-    component: Layout,
-    children: [
-      {
-        path: "index",
-        name: "Form",
-        component: () => import("@/views/form/index"),
-        meta: { title: "Form", icon: "form" },
-      },
-    ],
-  },
-
-  {
-    path: "/nested",
-    component: Layout,
-    redirect: "/nested/menu1",
-    name: "Nested",
-    meta: {
-      title: "Nested",
-      icon: "nested",
-    },
-    children: [
-      {
-        path: "menu1",
-        component: () => import("@/views/nested/menu1/index"), // Parent router-view
-        name: "Menu1",
-        meta: { title: "Menu1" },
-        children: [
-          {
-            path: "menu1-1",
-            component: () => import("@/views/nested/menu1/menu1-1"),
-            name: "Menu1-1",
-            meta: { title: "Menu1-1" },
-          },
-          {
-            path: "menu1-2",
-            component: () => import("@/views/nested/menu1/menu1-2"),
-            name: "Menu1-2",
-            meta: { title: "Menu1-2" },
-            children: [
-              {
-                path: "menu1-2-1",
-                component: () =>
-                  import("@/views/nested/menu1/menu1-2/menu1-2-1"),
-                name: "Menu1-2-1",
-                meta: { title: "Menu1-2-1" },
-              },
-              {
-                path: "menu1-2-2",
-                component: () =>
-                  import("@/views/nested/menu1/menu1-2/menu1-2-2"),
-                name: "Menu1-2-2",
-                meta: { title: "Menu1-2-2" },
-              },
-            ],
-          },
-          {
-            path: "menu1-3",
-            component: () => import("@/views/nested/menu1/menu1-3"),
-            name: "Menu1-3",
-            meta: { title: "Menu1-3" },
-          },
-        ],
-      },
-      {
-        path: "menu2",
-        component: () => import("@/views/nested/menu2/index"),
-        name: "Menu2",
-        meta: { title: "menu2" },
-      },
-    ],
-  },
-
-  {
     path: "external-link",
     component: Layout,
     children: [
@@ -170,6 +118,8 @@ export const constantRoutes = [
   // 404 page must be placed at the end !!!
   { path: "*", redirect: "/404", hidden: true },
 ];
+
+export const constantRoutes = [...optionsRoutesRes, ...baseRoutes];
 
 const createRouter = () =>
   new Router({

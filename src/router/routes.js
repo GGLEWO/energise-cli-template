@@ -1,33 +1,20 @@
-export const routes = [
-  {
-    path: "/login",
-    hidden: true,
-  },
-
-  {
-    path: "/404",
-    hidden: true,
-  },
-
-  {
-    path: "/",
-    redirect: "/dashboard",
-    children: [
-      {
-        path: "dashboard",
-        name: "Dashboard",
-        meta: { title: "Dashboard", icon: "dashboard" },
-      },
-    ],
-  },
-
+/*
+ * @Author: guanyaoming guanyaoming@linklogis.com
+ * @Date: 2022-11-30 17:57:26
+ * @LastEditors: guanyaoming guanyaoming@linklogis.com
+ * @LastEditTime: 2022-12-02 15:30:10
+ * @FilePath: \energise-cli-template\src\router\routes.js
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
+exports.optionsRoutes = [
   {
     path: "/table",
     children: [
       {
         path: "index",
-        name: "table",
+        name: "Table",
         meta: { title: "table", icon: "table" },
+        parent: "table",
       },
     ],
   },
@@ -36,8 +23,9 @@ export const routes = [
     children: [
       {
         path: "index",
-        name: "tree",
+        name: "Tree",
         meta: { title: "tree", icon: "tree" },
+        parent: "tree",
       },
     ],
   },
@@ -48,7 +36,8 @@ export const routes = [
       {
         path: "index",
         name: "Form",
-        meta: { title: "Form", icon: "form" },
+        meta: { title: "form", icon: "form" },
+        parent: "form",
       },
     ],
   },
@@ -56,7 +45,6 @@ export const routes = [
   {
     path: "/nested",
     redirect: "/nested/menu1",
-    name: "Nested",
     meta: {
       title: "Nested",
       icon: "nested",
@@ -66,33 +54,39 @@ export const routes = [
         path: "menu1",
         name: "Menu1",
         meta: { title: "Menu1" },
+        parent: "nested",
         children: [
           {
             path: "menu1-1",
-            name: "Menu1-1",
+            name: "Menu1A1",
             meta: { title: "Menu1-1" },
+            parent: "menu1",
           },
           {
             path: "menu1-2",
-            name: "Menu1-2",
+            name: "Menu1A2",
             meta: { title: "Menu1-2" },
+            parent: "menu1",
             children: [
               {
                 path: "menu1-2-1",
-                name: "Menu1-2-1",
+                name: "Menu1A2A1",
                 meta: { title: "Menu1-2-1" },
+                parent: "menu1/menu1-2",
               },
               {
                 path: "menu1-2-2",
-                name: "Menu1-2-2",
+                name: "Menu1A2A2",
                 meta: { title: "Menu1-2-2" },
+                parent: "menu1/menu1-2",
               },
             ],
           },
           {
             path: "menu1-3",
-            name: "Menu1-3",
+            name: "Menu1A3",
             meta: { title: "Menu1-3" },
+            parent: "menu1",
           },
         ],
       },
@@ -100,20 +94,8 @@ export const routes = [
         path: "menu2",
         name: "Menu2",
         meta: { title: "menu2" },
+        parent: "nested",
       },
     ],
   },
-
-  {
-    path: "external-link",
-    children: [
-      {
-        path: "https://panjiachen.github.io/vue-element-admin-site/#/",
-        meta: { title: "External Link", icon: "link" },
-      },
-    ],
-  },
-
-  // 404 page must be placed at the end !!!
-  { path: "*", redirect: "/404", hidden: true },
 ];
