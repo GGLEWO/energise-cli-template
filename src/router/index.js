@@ -1,8 +1,8 @@
 /*
  * @Author: guanyaoming guanyaoming@linklogis.com
  * @Date: 2022-11-30 14:13:40
- * @LastEditors: guanyaoming guanyaoming@linklogis.com
- * @LastEditTime: 2022-12-02 20:24:51
+ * @LastEditors: guanym 1195817329@qq.com
+ * @LastEditTime: 2022-12-03 15:56:40
  * @FilePath: \energise-cli-template\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -13,32 +13,7 @@ const { optionsRoutes } = require("./routes");
 Vue.use(Router);
 
 /* Layout */
-const Layout = () => import("@/layout");
-const Tree = () => import("@/views/tree");
-const Table = () => import("@/views/table");
-const Form = () => import("@/views/form");
-const Nested = () => import("@/views/nested/index");
-const Menu2 = () => import("@/views/nested/menu2/index");
-const Menu1 = () => import("@/views/nested/menu1/index");
-const Menu1A1 = () => import("@/views/nested/menu1/menu1-1");
-const Menu1A2 = () => import("@/views/nested/menu1/menu1-2/index");
-const Menu1A2A1 = () => import("@/views/nested/menu1/menu1-2/menu1-2-1");
-const Menu1A2A2 = () => import("@/views/nested/menu1/menu1-2/menu1-2-2");
-const Menu1A3 = () => import("@/views/nested/menu1/menu1-3");
-
-const componentHash = {
-  Tree,
-  Table,
-  Form,
-  Menu1,
-  Menu2,
-  Menu1A1,
-  Menu1A2A1,
-  Menu1A2A2,
-  Menu1A3,
-  Nested,
-  Menu1A2,
-};
+const Layout = (resolve) => require(["@/layout"], resolve);
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -65,20 +40,6 @@ const componentHash = {
  * all roles can be accessed
  */
 
-function handleAddComponent(e) {
-  e.component = e.name ? componentHash[e.name] : null;
-  if (e.children) {
-    e.children.map((val) => {
-      return handleAddComponent(val);
-    });
-  }
-  return e;
-}
-
-const optionsRoutesRes = optionsRoutes.map((e) => {
-  return handleAddComponent(e);
-});
-console.log(optionsRoutesRes, "optionsRoutesRes");
 const baseRoutes = [
   {
     path: "/",
@@ -111,7 +72,7 @@ const baseRoutes = [
 baseRoutes.unshift({
   path: "/dashboard",
   component: Layout,
-  children: optionsRoutesRes,
+  children: optionsRoutes,
   meta: { title: "dashBoard", icon: "dashboard" },
 });
 console.log(baseRoutes, "baseRoutes");
