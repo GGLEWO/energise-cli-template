@@ -1,8 +1,8 @@
 {
-  "name": "template",
+  "name": "{{name}}",
   "version": "4.4.0",
-  "description": "description",
-  "author": "ym",
+  "description": "{{description}}",
+  "author": "{{author}}",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build:prod": "vue-cli-service build",
