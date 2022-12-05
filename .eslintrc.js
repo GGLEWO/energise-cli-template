@@ -116,7 +116,7 @@ module.exports = {
     "no-duplicate-case": 2,
     "no-empty-character-class": 2,
     "no-empty-pattern": 2,
-    "no-eval": 2,
+    "no-eval": 0,
     "no-ex-assign": 2,
     "no-extend-native": 2,
     "no-extra-bind": 2,
@@ -230,7 +230,7 @@ module.exports = {
       },
     ],
     "space-before-blocks": [2, "always"],
-    "space-before-function-paren": [2, "never"],
+    "space-before-function-paren": [0, "never"],
     "space-in-parens": [2, "never"],
     "space-infix-ops": 2,
     "space-unary-ops": [

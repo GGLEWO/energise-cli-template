@@ -1,8 +1,8 @@
 /*
  * @Author: guanyaoming guanyaoming@linklogis.com
  * @Date: 2022-11-30 14:13:40
- * @LastEditors: guanym 1195817329@qq.com
- * @LastEditTime: 2022-12-03 15:56:40
+ * @LastEditors: guanyaoming guanyaoming@linklogis.com
+ * @LastEditTime: 2022-12-05 15:12:46
  * @FilePath: \energise-cli-template\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -69,13 +69,33 @@ const baseRoutes = [
   },
 ];
 
+/**
+ * @description: 把 optionRouter 的 component 由字符串转为函数
+ * @return {*}
+ */
+function handleComponent(e) {
+  if (e.component) {
+    const query = e.component;
+    e.component = (resolve) => require([`@/views/${query}`], resolve);
+  }
+  if (e.children) {
+    e.children = e.children.map((v) => {
+      return handleComponent(v);
+    });
+  }
+  return e;
+}
+
+const optionsRoutesRes = optionsRoutes.map((e) => {
+  return handleComponent(e);
+});
+
 baseRoutes.unshift({
   path: "/dashboard",
   component: Layout,
-  children: optionsRoutes,
+  children: optionsRoutesRes,
   meta: { title: "dashBoard", icon: "dashboard" },
 });
-console.log(baseRoutes, "baseRoutes");
 export const constantRoutes = baseRoutes;
 
 const createRouter = () =>
